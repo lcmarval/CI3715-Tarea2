@@ -19,7 +19,7 @@ class PensionTest(unittest.TestCase):
 
 	# test mujer cumple requisitos basicos
 	def testMujerBasico(self):
-		sexo = 'h'
+		sexo = 'f'
 		anhosServicio = 55
 		condicion = 0
 		semanas = 750
@@ -37,41 +37,51 @@ class PensionTest(unittest.TestCase):
 		sexo = 'm'
 		anhosServicio = 62
 		condicion = 0
-		reduccion = 0
 		semanas = 645
-		self.assertFalse(self.g.verificar(sexo, anhosServicio, semanas, condicion), 'No tiene Pension')
+		self.assertFalse(self.g.verificar(sexo, anhosServicio, semanas, condicion), 'tiene Pension, no deberia')
 
 	def testMujerNoCumpleEdadRequisito(self):
-		sexo = 'h'
+		sexo = 'f'
 		anhosServicio = 52
 		condicion = 0
-		reduccion = 0
 		semanas = 751
-		self.assertFalse(self.g.verificar(sexo, anhosServicio, semanas, condicion), 'No tiene Pension')
+		self.assertFalse(self.g.verificar(sexo, anhosServicio, semanas, condicion), 'tiene Pension, no deberia')
 
 	def testMujerNoCumpleSemanasRequisito(self):
-		sexo = 'h'
+		sexo = 'f'
 		anhosServicio = 59
 		condicion = 0
-		reduccion = 0
 		semanas = 733
-		self.assertFalse(self.g.verificar(sexo, anhosServicio, semanas, condicion), 'No tiene Pension')
+		self.assertFalse(self.g.verificar(sexo, anhosServicio, semanas, condicion), 'tiene Pension, no deberia')
 
 	def testHombreNoCumpleAmbosRequisito(self):
 		sexo = 'm'
 		anhosServicio = 47
 		condicion = 0
-		reduccion = 0
 		semanas = 745
-		self.assertFalse(self.g.verificar(sexo, anhosServicio, semanas, condicion), 'No tiene Pension')
+		self.assertFalse(self.g.verificar(sexo, anhosServicio, semanas, condicion), 'tiene Pension, no deberia')
 
 	def testMujerNoCumpleAmbosRequisito(self):
-		sexo = 'h'
+		sexo = 'f'
 		anhosServicio = 59
 		condicion = 0
-		reduccion = 0
 		semanas = 733
-		self.assertFalse(self.g.verificar(sexo, anhosServicio, semanas, condicion), 'No tiene Pension')
+		self.assertFalse(self.g.verificar(sexo, anhosServicio, semanas, condicion), 'tiene Pension, no deberia')
+
+	#Casos de prueba con trabajos en condiciones que ponen en riesgo la salud.
+	def testHombreCumpleConReduccionRequisito(self):
+		sexo = 'm'
+		edad = 55
+		condicion = 5
+		semanas = 750
+		self.assertTrue(self.g.verificar(sexo, edad, semanas, condicion), 'No tiene Pension')
+
+	def testMujerConReduccionArticulo162(self):
+		sexo = 'f'
+		edad = 59
+		condicion = 1
+		semanas = 750
+		self.assertTrue(self.g.verificar(sexo, edad, semanas, condicion), 'No tiene Pension')
 
 if __name__ == '__main__':
 	unittest.main()
