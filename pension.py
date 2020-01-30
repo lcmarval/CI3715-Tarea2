@@ -23,6 +23,18 @@ class Pension():
 	def RequisitosDeSemanasTrabajadas(self, semanas):
 		return semanas >= 750
 
+	def DeUnAnioEnAdelanteDeReduccion(self, condicion):
+		return condicion >= 1
+
+	def TopeDeReduccionPosible(self, condicion):
+		return condicion <= 5
+
+	def AniosDeServiciosJuntoConLaReduccionEnHombres(self, anhosServicio, condicion):
+		return anhosServicio + condicion >= 60
+
+	def AniosDeServiciosJuntoConLaReduccionEnMujeres(self, anhosServicio, condicion):
+		return anhosServicio + condicion >= 60
+
 	def verificar(self,sexo, anhosServicio, semanas, condicion):
 		if self.EsHombre(sexo):
 
@@ -33,9 +45,9 @@ class Pension():
 
 			else:
 
-				return (condicion >= 1 and 
-				        condicion <= 5 and 
-						(anhosServicio + condicion >= 60) and 
+				return (self.DeUnAnioEnAdelanteDeReduccion(condicion) and 
+				        self.TopeDeReduccionPosible(condicion) and 
+						self.AniosDeServiciosJuntoConLaReduccionEnHombres(anhosServicio, condicion) and 
 						self.RequisitosDeSemanasTrabajadas(semanas))
 
 		elif self.EsMujer(sexo):
@@ -47,8 +59,8 @@ class Pension():
 
 			else:
 				
-				return (condicion >= 1 and 
-				        condicion <= 5 and 
-						(anhosServicio + condicion >= 55) and 
+				return (self.DeUnAnioEnAdelanteDeReduccion(condicion) and 
+				        self.TopeDeReduccionPosible(condicion) and 
+						self.AniosDeServiciosJuntoConLaReduccionEnMujeres(anhosServicio, condicion) and 
 						self.RequisitosDeSemanasTrabajadas(semanas))
 			
