@@ -6,7 +6,9 @@ class Pension():
 		pass
 
 	def verificar(self,sexo, anhosServicio, semanas, condicion):
-		if (anhosServicio >= 60 and sexo == 'm' and condicion == 0 and semanas >= 750):
-			return True
-		else:
-			pass
+		if (sexo == 'm'):
+			return (anhosServicio >= 60 and condicion == 0 and semanas >= 750)
+
+		elif (sexo == 'h'):
+			return (anhosServicio >= 55 and condicion == 0 and semanas >= 750)
+			
