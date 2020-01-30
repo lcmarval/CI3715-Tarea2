@@ -6,6 +6,7 @@ class PensionTest(unittest.TestCase):
 	def setUp(self):
 		self.g = Pension()
 
+
 	#Casos de prueba basicos
 
 	# test hombre cumple requisitos basicos
