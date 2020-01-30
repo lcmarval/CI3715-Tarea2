@@ -23,7 +23,7 @@ class PensionTest(unittest.TestCase):
 		anhosServicio = 55
 		condicion = 0
 		semanas = 750
-		self.assertTrue(self.g.verificar(sexo, anhosServicio, semanas, condicion,), 'No tiene Pension')
+		self.assertTrue(self.g.verificar(sexo, anhosServicio, semanas, condicion), 'No tiene Pension')
 
 	# test hombre no tiene anhos para cumplir requisito
 	def testHombreNoCumpleAnhosServicioRequisito(self):
@@ -71,17 +71,19 @@ class PensionTest(unittest.TestCase):
 	#Casos de prueba con trabajos en condiciones que ponen en riesgo la salud.
 	def testHombreCumpleConReduccionRequisito(self):
 		sexo = 'm'
-		edad = 55
+		anhosServicio = 55
 		condicion = 5
 		semanas = 750
-		self.assertTrue(self.g.verificar(sexo, edad, semanas, condicion), 'No tiene Pension')
+		self.assertTrue(self.g.verificar(sexo, anhosServicio, semanas, condicion), 'No tiene Pension')
 
 	def testMujerConReduccionArticulo162(self):
 		sexo = 'f'
-		edad = 59
+		anhosServicio = 59
 		condicion = 1
 		semanas = 750
-		self.assertTrue(self.g.verificar(sexo, edad, semanas, condicion), 'No tiene Pension')
+		self.assertTrue(self.g.verificar(sexo, anhosServicio, semanas, condicion), 'No tiene Pension')
+
+	# Casos Maliciosos
 
 if __name__ == '__main__':
 	unittest.main()
