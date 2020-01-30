@@ -31,7 +31,7 @@ class PensionTest(unittest.TestCase):
 		anhosServicio = 47
 		condicion = 0
 		semanas = 750
-		self.assertTrue(self.g.verificar(sexo, anhosServicio, semanas, condicion), 'tiene Pension, no deberia')
+		self.assertFalse(self.g.verificar(sexo, anhosServicio, semanas, condicion), 'tiene Pension, no deberia')
 
 if __name__ == '__main__':
 	unittest.main()
