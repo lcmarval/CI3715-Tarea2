@@ -12,17 +12,26 @@ class PensionTest(unittest.TestCase):
 	# test hombre cumple requisitos basicos
 	def testHombreBasico(self):
 		sexo = 'm'
-		edad = 60
+		anhosServicio = 60
 		condicion = 0
 		semanas = 750
-		self.assertTrue(self.g.verificar(sexo, edad, semanas, condicion), 'No tiene Pension')
+		self.assertTrue(self.g.verificar(sexo, anhosServicio, semanas, condicion), 'No tiene Pension')
 
+	# test mujer cumple requisitos basicos
 	def testMujerBasico(self):
 		sexo = 'h'
-		edad = 55
+		anhosServicio = 55
 		condicion = 0
 		semanas = 750
-		self.assertTrue(self.g.verificar(sexo, edad, semanas, condicion,), 'No tiene Pension')
+		self.assertTrue(self.g.verificar(sexo, anhosServicio, semanas, condicion,), 'No tiene Pension')
+
+	# test hombre no tiene anhos para cumplir requisito
+	def testHombreNoCumpleAnhosServicioRequisito(self):
+		sexo = 'm'
+		anhosServicio = 47
+		condicion = 0
+		semanas = 750
+		self.assertTrue(self.g.verificar(sexo, anhosServicio, semanas, condicion), 'tiene Pension, no deberia')
 
 if __name__ == '__main__':
 	unittest.main()
