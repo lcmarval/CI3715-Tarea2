@@ -79,6 +79,8 @@ class PensionTest(unittest.TestCase):
 	def testParametroSemanasRedondeaIncorrecto(self):
 		self.assertFalse(self.g.verificar(FEMENINO, A_SERVIVICIO_F + 1, SEMANAS_CORRECTAS - 0.4, CONDICION_SALUDABLE), 'Tiene pension, Redondea semanas tipo incorrecto')
 
+	def testCondicionNegativa(self):
+		self.assertFalse(self.g.verificar(FEMENINO, A_SERVIVICIO_F, SEMANAS_CORRECTAS, CONDICION_SALUDABLE - 5), 'Tiene pension, Redondea semanas tipo incorrecto')
 
 if __name__ == '__main__':
 	unittest.main()

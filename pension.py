@@ -24,7 +24,7 @@ class Pension():
 		return sexo == FEMENINO
 
 	def AniosDeServicioHombre(self, anhosServicio):
-		return anhosServicio >= A_SERVIVICIO_M
+		return anhosServicio >= A_SERVIVICIO_M 
 
 	def AniosDeServicioMujer(self, anhosServicio):
 		return anhosServicio >= A_SERVIVICIO_F
@@ -39,10 +39,10 @@ class Pension():
 		return condicion <= MAXIMO_ANHOS_CONDICION
 
 	def AniosDeServiciosJuntoConLaReduccionEnHombres(self, anhosServicio, condicion):
-		return anhosServicio + condicion >= A_SERVIVICIO_M
+		return type(anhosServicio) == int and type(condicion) == int and anhosServicio + condicion >= A_SERVIVICIO_M
 
 	def AniosDeServiciosJuntoConLaReduccionEnMujeres(self, anhosServicio, condicion):
-		return anhosServicio + condicion >= A_SERVIVICIO_F
+		return type(anhosServicio) == int and type(condicion) == int and anhosServicio + condicion >= A_SERVIVICIO_F
 
 	def verificar(self,sexo, anhosServicio, semanas, condicion):
 		if self.EsHombre(sexo):
