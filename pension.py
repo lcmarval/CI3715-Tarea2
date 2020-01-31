@@ -33,7 +33,7 @@ class Pension():
 		return anhosServicio + condicion >= 60
 
 	def AniosDeServiciosJuntoConLaReduccionEnMujeres(self, anhosServicio, condicion):
-		return anhosServicio + condicion >= 60
+		return anhosServicio + condicion >= 55
 
 	def verificar(self,sexo, anhosServicio, semanas, condicion):
 		if self.EsHombre(sexo):
