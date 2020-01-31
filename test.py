@@ -2,136 +2,82 @@ import unittest
 from pension import *
 from datetime import date
 
+MASCULINO = 'm'
+FEMENINO = 'f'
+A_SERVIVICIO_M = 60
+A_SERVIVICIO_F = 55
+SEMANAS_CORRECTAS = 750
+CONDICION_SALUDABLE = 0
+
 class PensionTest(unittest.TestCase):
+
 	def setUp(self):
 		self.g = Pension()
-
 
 	#Casos de prueba basicos
 
 	# test hombre cumple requisitos basicos
 	def testHombreBasico(self):
-		sexo = 'm'
-		anhosServicio = 60
-		condicion = 0
-		semanas = 750
-		self.assertTrue(self.g.verificar(sexo, anhosServicio, semanas, condicion), 'No tiene Pension')
+		self.assertTrue(self.g.verificar(MASCULINO, A_SERVIVICIO_M, SEMANAS_CORRECTAS, CONDICION_SALUDABLE), 'No tiene Pension')
 
 	# test mujer cumple requisitos basicos
 	def testMujerBasico(self):
-		sexo = 'f'
-		anhosServicio = 55
-		condicion = 0
-		semanas = 750
-		self.assertTrue(self.g.verificar(sexo, anhosServicio, semanas, condicion), 'No tiene Pension')
+		self.assertTrue(self.g.verificar(FEMENINO, A_SERVIVICIO_F, SEMANAS_CORRECTAS, CONDICION_SALUDABLE), 'No tiene Pension')
 
 	# test hombre no tiene anhos para cumplir requisito
 	def testHombreNoCumpleAnhosServicioRequisito(self):
-		sexo = 'm'
-		anhosServicio = 47
-		condicion = 0
-		semanas = 750
-		self.assertFalse(self.g.verificar(sexo, anhosServicio, semanas, condicion), 'tiene Pension, no deberia')
+		self.assertFalse(self.g.verificar(MASCULINO, A_SERVIVICIO_F - 5, SEMANAS_CORRECTAS, CONDICION_SALUDABLE), 'tiene Pension, no deberia')
 
 	def testHombreNoCumpleSemanasRequisito(self):
-		sexo = 'm'
-		anhosServicio = 62
-		condicion = 0
-		semanas = 645
-		self.assertFalse(self.g.verificar(sexo, anhosServicio, semanas, condicion), 'tiene Pension, no deberia')
+		self.assertFalse(self.g.verificar(MASCULINO, A_SERVIVICIO_M + 2, SEMANAS_CORRECTAS - 5, CONDICION_SALUDABLE), 'tiene Pension, no deberia')
 
 	def testMujerNoCumpleEdadRequisito(self):
-		sexo = 'f'
-		anhosServicio = 52
-		condicion = 0
-		semanas = 751
-		self.assertFalse(self.g.verificar(sexo, anhosServicio, semanas, condicion), 'tiene Pension, no deberia')
+		self.assertFalse(self.g.verificar(FEMENINO, A_SERVIVICIO_F - 2, SEMANAS_CORRECTAS + 1, CONDICION_SALUDABLE), 'tiene Pension, no deberia')
 
 	def testMujerNoCumpleSemanasRequisito(self):
-		sexo = 'f'
-		anhosServicio = 59
-		condicion = 0
-		semanas = 733
-		self.assertFalse(self.g.verificar(sexo, anhosServicio, semanas, condicion), 'tiene Pension, no deberia')
+		self.assertFalse(self.g.verificar(FEMENINO, A_SERVIVICIO_M - 1, SEMANAS_CORRECTAS - 15, CONDICION_SALUDABLE), 'tiene Pension, no deberia')
 
 	def testHombreNoCumpleAmbosRequisito(self):
-		sexo = 'm'
-		anhosServicio = 47
-		condicion = 0
-		semanas = 745
-		self.assertFalse(self.g.verificar(sexo, anhosServicio, semanas, condicion), 'tiene Pension, no deberia')
+		self.assertFalse(self.g.verificar(MASCULINO, A_SERVIVICIO_F - 5, SEMANAS_CORRECTAS - 15, CONDICION_SALUDABLE), 'tiene Pension, no deberia')
 
 	def testMujerNoCumpleAmbosRequisito(self):
-		sexo = 'f'
-		anhosServicio = 59
-		condicion = 0
-		semanas = 733
-		self.assertFalse(self.g.verificar(sexo, anhosServicio, semanas, condicion), 'tiene Pension, no deberia')
+		self.assertFalse(self.g.verificar(FEMENINO, A_SERVIVICIO_F - 5, SEMANAS_CORRECTAS - 22, CONDICION_SALUDABLE), 'tiene Pension, no deberia')
 
 	#Casos de prueba con trabajos en condiciones que ponen en riesgo la salud.
 	def testHombreCumpleConReduccionRequisito(self):
-		sexo = 'm'
-		anhosServicio = 55
-		condicion = 5
-		semanas = 750
-		self.assertTrue(self.g.verificar(sexo, anhosServicio, semanas, condicion), 'No tiene Pension')
+		self.assertTrue(self.g.verificar(MASCULINO, A_SERVIVICIO_F, SEMANAS_CORRECTAS, CONDICION_SALUDABLE + 5), 'No tiene Pension')
 
 	def testMujerConReduccionArticulo162(self):
-		sexo = 'f'
-		anhosServicio = 59
-		condicion = 1
-		semanas = 750
-		self.assertTrue(self.g.verificar(sexo, anhosServicio, semanas, condicion), 'No tiene Pension')
+		self.assertTrue(self.g.verificar(FEMENINO, A_SERVIVICIO_F - 1, SEMANAS_CORRECTAS, CONDICION_SALUDABLE + 1), 'No tiene Pension')
 
 	# Artuclo 162 falso
 	def testHombreCumpleConReduccionRequisitoAnhosInsuficientes(self):
-		sexo = 'm'
-		anhosServicio = 53
-		condicion = 5
-		semanas = 750
-		self.assertFalse(self.g.verificar(sexo, anhosServicio, semanas, condicion), 'Tiene Pension, No debe')
+		self.assertFalse(self.g.verificar(MASCULINO, A_SERVIVICIO_F - 2, SEMANAS_CORRECTAS, 5), 'Tiene Pension, No debe')
 
 	def testMujerConReduccionArticulo162AnhosInsuficientes(self):
-		sexo = 'f'
-		anhosServicio = 40
-		condicion = 1
-		semanas = 750
-		self.assertFalse(self.g.verificar(sexo, anhosServicio, semanas, condicion), 'Tiene Pension, no debe')
+		self.assertFalse(self.g.verificar(FEMENINO, 40, SEMANAS_CORRECTAS, 1), 'Tiene Pension, no debe')
 
 	# Casos Maliciosos
 	def testHombreMayuscula(self):
-		self.assertFalse(self.g.verificar('M', 60, 750, 0), 'Tiene pension, es Mayuscula')
+		self.assertFalse(self.g.verificar('M', A_SERVIVICIO_M, SEMANAS_CORRECTAS, CONDICION_SALUDABLE), 'Tiene pension, es Mayuscula')
 
 	def testMujerMayuscula(self):
-		self.assertFalse(self.g.verificar('F', 55, 750, 0), 'Tiene pension, es Mayuscula')
+		self.assertFalse(self.g.verificar('F', A_SERVIVICIO_F, SEMANAS_CORRECTAS, CONDICION_SALUDABLE), 'Tiene pension, es Mayuscula')
 
 	def testParametroSexoIncorrecto(self):
-		sexo = 'n'
-		anhosServicio = 59
-		condicion = 1
-		semanas = 750
-		self.assertFalse(self.g.verificar(sexo, anhosServicio, semanas, condicion), 'Tiene pension, sin saber sexo')
+		self.assertFalse(self.g.verificar('n', A_SERVIVICIO_M - 1, SEMANAS_CORRECTAS, CONDICION_SALUDABLE), 'Tiene pension, sin saber sexo')
+
+	def testParametroSexoBooleano(self):
+		self.assertFalse(self.g.verificar(True, A_SERVIVICIO_M - 1, SEMANAS_CORRECTAS, CONDICION_SALUDABLE + 1), 'Tiene pension, sexo Booleano')
 
 	def testParametroAnhosServicioIncorrecto(self):
-		sexo = 'm'
-		anhosServicio = 'sesenta'
-		condicion = 1
-		semanas = 750
-		self.assertFalse(self.g.verificar(sexo, anhosServicio, semanas, condicion), 'Tiene pension, Anhos tipo incorrecto')
+		self.assertFalse(self.g.verificar(MASCULINO, 'SESENTA', SEMANAS_CORRECTAS, CONDICION_SALUDABLE + 1), 'Tiene pension, Anhos tipo incorrecto')
 	
 	def testParametroCondicionFloatIncorrecto(self):
-		sexo = 'f'
-		anhosServicio = 54
-		condicion = 1.1 # incorrecto ?
-		semanas = 750
-		self.assertFalse(self.g.verificar(sexo, anhosServicio, semanas, condicion), 'Tiene pension, Condicion tipo incorrecto')
+		self.assertFalse(self.g.verificar(FEMENINO, A_SERVIVICIO_F - 1, SEMANAS_CORRECTAS, CONDICION_SALUDABLE + 0.1), 'Tiene pension, Condicion tipo incorrecto')
 
 	def testParametroSemanasRedondeaIncorrecto(self):
-		sexo = 'f'
-		anhosServicio = 56
-		condicion = 0
-		semanas = 749.6
-		self.assertFalse(self.g.verificar(sexo, anhosServicio, semanas, condicion), 'Tiene pension, Redondea semanas tipo incorrecto')
+		self.assertFalse(self.g.verificar(FEMENINO, A_SERVIVICIO_F + 1, SEMANAS_CORRECTAS - 0.4, CONDICION_SALUDABLE), 'Tiene pension, Redondea semanas tipo incorrecto')
 
 
 if __name__ == '__main__':
