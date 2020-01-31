@@ -1,39 +1,48 @@
 from datetime import date
 
+MASCULINO = 'm'
+FEMENINO = 'f'
+A_SERVIVICIO_M = 60
+A_SERVIVICIO_F = 55
+SEMANAS_CORRECTAS = 750
+CONDICION_SALUDABLE = 0
+MINIMO_ANHOS_CONDICION = 1
+MAXIMO_ANHOS_CONDICION = 5
+
 class Pension():
 
 	def __init__(self):
 		pass
 
 	def ReduccionArticulo162(self, condicion):
-		return condicion == 0
+		return condicion == CONDICION_SALUDABLE
 
 	def EsHombre(self, sexo):
-		return sexo == 'm'
+		return sexo == MASCULINO
 
 	def EsMujer(self, sexo):
-		return sexo == 'f'
+		return sexo == FEMENINO
 
 	def AniosDeServicioHombre(self, anhosServicio):
-		return anhosServicio >= 60
+		return anhosServicio >= A_SERVIVICIO_M
 
 	def AniosDeServicioMujer(self, anhosServicio):
-		return anhosServicio >= 55
+		return anhosServicio >= A_SERVIVICIO_F
 
 	def RequisitosDeSemanasTrabajadas(self, semanas):
-		return semanas >= 750
+		return semanas >= SEMANAS_CORRECTAS
 
 	def DeUnAnioEnAdelanteDeReduccion(self, condicion):
-		return condicion >= 1
+		return condicion >= MINIMO_ANHOS_CONDICION
 
 	def TopeDeReduccionPosible(self, condicion):
-		return condicion <= 5
+		return condicion <= MAXIMO_ANHOS_CONDICION
 
 	def AniosDeServiciosJuntoConLaReduccionEnHombres(self, anhosServicio, condicion):
-		return anhosServicio + condicion >= 60
+		return anhosServicio + condicion >= A_SERVIVICIO_M
 
 	def AniosDeServiciosJuntoConLaReduccionEnMujeres(self, anhosServicio, condicion):
-		return anhosServicio + condicion >= 55
+		return anhosServicio + condicion >= A_SERVIVICIO_F
 
 	def verificar(self,sexo, anhosServicio, semanas, condicion):
 		if self.EsHombre(sexo):
